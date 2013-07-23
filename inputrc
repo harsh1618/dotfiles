@@ -1,0 +1,8 @@
+# when using vi key bindings set ctrl-l to clear screen
+Control-l: clear-screen
+
+# map alt-. to yank lastargument of previous command
+"\e.": yank-last-arg
+
+# prefix current command with sudo
+Control-a: "\eIsudo \eA"
