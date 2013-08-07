@@ -17,8 +17,13 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=20000
+HISTSIZE=500
+HISTFILESIZE=2000
+
+# eternal bash history http://www.debian-administration.org/articles/543
+export HISTTIMEFORMAT="%s "
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER \
+               "$(history 1)" >> ~/.bash_eternal_history'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
