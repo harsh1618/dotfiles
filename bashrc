@@ -18,12 +18,11 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=500
-HISTFILESIZE=2000
+HISTFILESIZE=5000
 
-# eternal bash history http://www.debian-administration.org/articles/543
 export HISTTIMEFORMAT="%s "
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER \
-               "$(history 1)" >> ~/.bash_eternal_history'
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER\
+               $(history 1) >> ~/.bash_eternal_history'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -114,3 +113,50 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+# add ~/bin to PATH
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+
+# Author.: Ole J
+# Date...: 23.03.2008
+# License: Whatever
+
+# Wraps a completion function
+# make-completion-wrapper <actual completion function> <name of new func.>
+#                         <command name> <list supplied arguments>
+# eg.
+#       alias agi='apt-get install'
+#       make-completion-wrapper _apt_get _apt_get_install apt-get install
+# defines a function called _apt_get_install (that's $2) that will complete
+# the 'agi' alias. (complete -F _apt_get_install agi)
+#
+#function make-completion-wrapper () {
+#local comp_function_name="$1"
+#local function_name="$2"
+#local alias_name="$3"
+#local arg_count=$(($#-4))
+#shift 3
+#local args="$*"
+#local function="
+#function $function_name {
+#COMP_LINE=\"$@\${COMP_LINE#$alias_name}\"
+#let COMP_POINT+=$((${#args}-${#alias_name}))
+#((COMP_CWORD+=$arg_count))
+#COMP_WORDS=("$@" \"\${COMP_WORDS[@]:1}\")
+# 
+#local cur words cword prev
+#_get_comp_words_by_ref -n =: cur words cword prev
+#"$comp_function_name"
+#return 0
+#}"
+#eval "$function"
+## echo $function_name
+## echo "$function"
+#}
+#
+##autocomplete for alias ins='apt-get install'
+#make-completion-wrapper _apt_get _ins apt-get install
+#complete -o filenames -F _ins ins
