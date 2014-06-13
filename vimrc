@@ -4,8 +4,8 @@ set nocompatible
 " required for vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
@@ -15,6 +15,8 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomasr/molokai'
 Bundle 'croaker/mustang-vim'
@@ -26,6 +28,7 @@ Bundle 'fholgado/minibufexpl.vim'
 "Plugin 'L9'
 "Plugin 'FuzzyFinder'
 
+call vundle#end()
 filetype plugin indent on
 filetype plugin on
 
