@@ -8,7 +8,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -18,19 +18,34 @@ Bundle 'scrooloose/syntastic'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
-Bundle 'tomasr/molokai'
-Bundle 'croaker/mustang-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jpalardy/vim-slime'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'danro/rename.vim'
 Bundle 'fholgado/minibufexpl.vim'
+Bundle 'ivanov/vim-ipython'
+Bundle 'tpope/vim-fugitive'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'sjl/gundo.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 "Plugin 'L9'
 "Plugin 'FuzzyFinder'
+
+" colorschemes
+Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'croaker/mustang-vim'
+Bundle 'nanotech/jellybeans.vim'
+Bundle 'sjl/badwolf'
+Bundle 'vim-scripts/twilight'
 
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
+
+let mapleader=","
 
 " show line numbers
 set nu
@@ -83,10 +98,13 @@ vnoremap : ;
 set autochdir
 
 " save file with sudo privileges
-noremap <F2> :w !sudo tee > /dev/null %<CR>
+noremap <Leader>w :w !sudo tee > /dev/null %<CR>
+
+" show diff of current buffer with last saved version
+noremap <Leader>d :w !diff % -<CR>
 
 " keep cursor on middle line when scrolling
-set scrolloff=999
+set scrolloff=5
 
 " place search results on middle line
 "map n nzz
@@ -99,7 +117,8 @@ set pastetoggle=<F3>
 set path+=**
 
 " toggle nerd-tree window
-noremap <C-n> :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeTabsToggle<CR>
+let NERDTreeIgnore=['\~$', '\.pyc$']
 
 " don't abandon buffers when unloading
 set hidden
@@ -127,15 +146,21 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 set backspace=indent,eol,start
 
 " toggle taglist window
-nnoremap <C-y> :TlistToggle<CR>
+nnoremap <Leader>t :TlistToggle<CR>
 let Tlist_GainFocus_On_ToggleOpen=1
 let Tlist_Show_One_File=1
 
 " toggle minibufexpl window
-nnoremap <C-b> :TMiniBufExplorer<CR>
+nnoremap <Leader>b :MBEToggle<CR>
 
 " slime default to ipython: wrap in %cpaste when sending to buffer
 let g:slime_python_ipython=1
+
+" toggle gundo
+nnoremap <Leader>u :GundoToggle<CR>
+
+" indent guides
+nnoremap <Leader>i :IndentGuidesToggle<CR>
 
 " make space and backspace keys function as in insert mode
 nnoremap <space> i<space><Esc>l
