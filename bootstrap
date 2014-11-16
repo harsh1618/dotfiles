@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+cd "$(dirname "$0")"
+REPO_PATH=$(pwd)
+
+for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases'
+do
+    if [ -e "$HOME/.$src" ]
+    then
+        mv -i $HOME/.$src $HOME/.$src.bak
+        echo "Moved $HOME/.$src to $HOME/.$src.bak"
+    fi
+    ln -s $REPO_PATH/$src $HOME/.$src
+    echo "Symlinked $HOME/.$src"
+done
