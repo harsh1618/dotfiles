@@ -17,8 +17,9 @@ Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+"Bundle 'garbas/vim-snipmate'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'jpalardy/vim-slime'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'danro/rename.vim'
@@ -30,9 +31,12 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
-Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'Raimondi/delimitMate'
+"Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-markdown'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'lukaszkorecki/CoffeeTags'
 "Plugin 'L9'
 "Plugin 'FuzzyFinder'
 
@@ -98,6 +102,8 @@ set hlsearch
 " remove highlighting
 nnoremap `` :noh<CR>
 
+set mouse=a
+
 " map : to ; and vice-versa
 " so you don't have to hold down shift to get into command mode
 nnoremap ; :
@@ -105,7 +111,13 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
+" guest mode
+noremap <Leader>; :unmap :<Bar>unmap ;<CR>
+
 inoremap jj <Esc>
+
+" disable Ex mode
+noremap Q <nop>
 
 " automatically change directory to the file location
 "set autochdir
@@ -152,6 +164,7 @@ set go-=m
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
+noremap <Leader>j :YcmCompleter GoToDefinition<CR>
 
 set tags+=../tags
 
@@ -164,8 +177,8 @@ let Tlist_GainFocus_On_ToggleOpen=1
 let Tlist_Show_One_File=1
 
 " toggle minibufexpl window
-"nnoremap <Leader>b :MBEToggle<CR>
-nnoremap <Leader>b :TMiniBufExplorer<CR>
+nnoremap <Leader>b :MBEToggle<CR>
+"nnoremap <Leader>b :TMiniBufExplorer<CR>
 
 " slime default to ipython: wrap in %cpaste when sending to buffer
 let g:slime_python_ipython=1
@@ -195,3 +208,10 @@ nnoremap <Leader>r :grep -r <C-R><C-W> *<CR>
 let g:ctrlp_custom_ignore='.*\.o$'
 " use vim's pwd
 let g:ctrlp_working_path_mode = 'a'
+
+" Restore cursor position
+autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
+
