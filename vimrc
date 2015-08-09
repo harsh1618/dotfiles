@@ -36,7 +36,10 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'lukaszkorecki/CoffeeTags'
+if has("ruby")
+    Plugin 'lukaszkorecki/CoffeeTags'
+endif
+Plugin 'cbracken/vala.vim'
 "Plugin 'L9'
 "Plugin 'FuzzyFinder'
 
@@ -47,6 +50,8 @@ Bundle 'croaker/mustang-vim'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'sjl/badwolf'
 Bundle 'vim-scripts/twilight'
+Bundle 'trusktr/seti.vim'
+Bundle 'effkay/argonaut.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -112,6 +117,7 @@ vnoremap ; :
 vnoremap : ;
 
 " guest mode
+" undo above mapping
 noremap <Leader>; :unmap :<Bar>unmap ;<CR>
 
 inoremap jj <Esc>
@@ -209,9 +215,22 @@ let g:ctrlp_custom_ignore='.*\.o$'
 " use vim's pwd
 let g:ctrlp_working_path_mode = 'a'
 
-" Restore cursor position
+" Remember cursor position
 autocmd BufReadPost *
             \ if line("'\"") > 1 && line("'\"") <= line("$") |
             \   exe "normal! g`\"" |
             \ endif
 
+" Remember undo history
+set undofile
+set undodir=~/.vim/undodir
+
+if has("patch-7.4-399")
+    set cryptmethod=blowfish2
+endif
+
+let tlist_vala_settings='c#;d:macro;t:typedef;n:namespace;c:class;'.
+  \ 'E:event;g:enum;s:struct;i:interface;'.
+  \ 'p:properties;m:method'
+
+set title
