@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 REPO_PATH=$(pwd)
 
-for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases'
+for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases' 'nvimrc'
 do
     if [ -e "$HOME/.$src" ]
     then
@@ -12,3 +12,8 @@ do
     ln -s $REPO_PATH/$src $HOME/.$src
     echo "Symlinked $HOME/.$src"
 done
+
+if [ ! -e "$HOME/.nvim" ]
+then
+    ln -s $HOME/.vim $HOME/.nvim
+fi
