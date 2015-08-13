@@ -21,7 +21,7 @@ HISTSIZE=500
 HISTFILESIZE=5000
 
 export HISTTIMEFORMAT="%s "
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER\
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND}"'echo $$ $USER\
                $(history 1) >> ~/.bash_eternal_history'
 
 # check the window size after each command and, if necessary,
