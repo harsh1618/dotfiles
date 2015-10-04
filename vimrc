@@ -1,6 +1,8 @@
 " needed for some vim features
 set nocompatible
 
+let mapleader=" "
+
 " required for vundle
 filetype off
 
@@ -55,9 +57,6 @@ Bundle 'effkay/argonaut.vim'
 
 call vundle#end()
 filetype plugin indent on
-filetype plugin on
-
-let mapleader=","
 
 " show line numbers
 set nu
@@ -120,10 +119,14 @@ vnoremap : ;
 " undo above mapping
 noremap <Leader>; :unmap :<Bar>unmap ;<CR>
 
+" 0 to go to first non-whitespace character
+nnoremap 0 ^
+nnoremap ^ 0
+
 inoremap jj <Esc>
 
-" disable Ex mode
-noremap Q <nop>
+" repeat last defined macro, Bonus: no Ex mode
+nnoremap Q @@
 
 " automatically change directory to the file location
 "set autochdir
@@ -136,10 +139,6 @@ noremap <Leader>d :w !diff % -<CR>
 
 " minimum number of lines after/before current line on the screen
 set scrolloff=5
-
-" place search results on middle line
-"map n nzz
-"map N Nzz
 
 " toggle paste mode and display current value
 nnoremap <F3> :set invpaste paste?<CR>
@@ -194,10 +193,6 @@ nnoremap <Leader>u :GundoToggle<CR>
 
 " indent guides
 nnoremap <Leader>i :IndentGuidesToggle<CR>
-
-" make space and backspace keys function as in insert mode
-nnoremap <space> i<space><Esc>l
-nnoremap <BS> i<BS><Esc>l
 
 " yank/delete till end of line
 nnoremap C c$
