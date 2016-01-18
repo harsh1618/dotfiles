@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 REPO_PATH=$(pwd)
 
-for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases' 'nvimrc'
+for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases'
 do
     if [ -e "$HOME/.$src" ]
     then
@@ -13,7 +13,13 @@ do
     echo "Symlinked $HOME/.$src"
 done
 
-if [ ! -e "$HOME/.nvim" ]
+NVIM_DIR=$HOME/.config/nvim
+mkdir -p $NVIM_DIR
+if [ -e "$NVIM_DIR/init.vim" ]
 then
-    ln -s $HOME/.vim $HOME/.nvim
+    mv -i $NVIM_DIR/init.vim $NVIM_DIR/init.vim.bak
+    echo "Moved $NVIM_DIR/init.vim to $NVIM_DIR/init.vim.bak"
 fi
+ln -s $REPO_PATH/init.vim $NVIM_DIR/init.vim
+echo "Symlinked $NVIM_DIR/init.vim"
+

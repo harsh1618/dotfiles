@@ -11,6 +11,7 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/ListToggle'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
@@ -35,6 +36,7 @@ Bundle 'Raimondi/delimitMate'
 "Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-markdown'
+Plugin 'shiracamus/vim-syntax-x86-objdump-d'
 Plugin 'kchmck/vim-coffee-script'
 if has("ruby")
     Plugin 'lukaszkorecki/CoffeeTags'
@@ -52,12 +54,13 @@ Bundle 'sjl/badwolf'
 Bundle 'vim-scripts/twilight'
 Bundle 'trusktr/seti.vim'
 Bundle 'effkay/argonaut.vim'
+Bundle 'vim-scripts/Wombat'
 
 call vundle#end()
 filetype plugin indent on
 filetype plugin on
 
-let mapleader=","
+let mapleader=" "
 
 " show line numbers
 set nu
@@ -147,7 +150,7 @@ set pastetoggle=<F3>
 
 " toggle nerd-tree window
 noremap <Leader>n :NERDTreeTabsToggle<CR>
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.o$']
+let NERDTreeIgnore=['\~$', '\.pyc$', '\.o$', '\.cmi$', '\.cmo$', '\.cmt$', '\.cmti$', '\.annot$', '\.cmx$']
 let g:NERDTreeWinSize=20
 
 " don't abandon buffers when unloading
@@ -170,6 +173,7 @@ set go-=m
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_always_populate_location_list = 1
 noremap <Leader>j :YcmCompleter GoToDefinition<CR>
 
 set tags+=../tags
@@ -194,10 +198,6 @@ nnoremap <Leader>u :GundoToggle<CR>
 
 " indent guides
 nnoremap <Leader>i :IndentGuidesToggle<CR>
-
-" make space and backspace keys function as in insert mode
-nnoremap <space> i<space><Esc>l
-nnoremap <BS> i<BS><Esc>l
 
 " yank/delete till end of line
 nnoremap C c$
@@ -234,3 +234,9 @@ let tlist_vala_settings='c#;d:macro;t:typedef;n:namespace;c:class;'.
   \ 'p:properties;m:method'
 
 set title
+
+" OCaml
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+let g:syntastic_ocaml_checkers = ['merlin']
+execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"

@@ -1,4 +1,3 @@
-alias ins='sudo apt-get install'
 alias ins="sudo apt-get install"
 alias upd='sudo apt-get update'
 alias upg='sudo apt-get upgrade'
