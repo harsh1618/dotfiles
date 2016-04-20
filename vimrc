@@ -14,7 +14,7 @@ Bundle 'gmarik/Vundle.vim'
 
 Bundle 'Valloric/YouCompleteMe'
 "Bundle 'Valloric/ListToggle'
-Bundle 'nathanaelkane/vim-indent-guides'
+"Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kien/ctrlp.vim'
 Bundle 'bling/vim-airline'
 Bundle 'scrooloose/syntastic'
@@ -23,7 +23,9 @@ Bundle 'tomtom/tlib_vim'
 "Bundle 'garbas/vim-snipmate'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'jpalardy/vim-slime'
+"Bundle 'jpalardy/vim-slime'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'danro/rename.vim'
 Bundle 'techlivezheng/vim-plugin-minibufexpl'
@@ -57,6 +59,9 @@ Bundle 'vim-scripts/twilight'
 Bundle 'trusktr/seti.vim'
 Bundle 'effkay/argonaut.vim'
 Bundle 'vim-scripts/Wombat'
+Bundle 'joshdick/onedark.vim'
+Bundle 'joshdick/airline-onedark.vim'
+Bundle 'vim-airline/vim-airline-themes'
 
 call vundle#end()
 filetype plugin indent on
@@ -155,8 +160,11 @@ let g:NERDTreeWinSize=20
 " don't abandon buffers when unloading
 set hidden
 
-set t_Co=256
-colorscheme molokai
+" set t_Co=256
+colorscheme onedark
+let g:airline_powerline_fonts = 1
+let g:airline_theme="onedark"
+let g:airline#extensions#whitespace#enabled = 0
 
 " split vertically for diffs
 set diffopt+=vertical
@@ -204,7 +212,7 @@ nnoremap D d$
 nnoremap Y y$
 
 "grep options
-set grepprg=grep\ -n\ -I\ $*\ /dev/null
+set grepprg=grep\ --exclude=tags\ --exclude=cscope.out\ -n\ -I\ $*\ /dev/null
 " search for the word under the cursor
 nnoremap <Leader>g :grep <C-R><C-W> *<CR>
 nnoremap <Leader>r :grep -r <C-R><C-W> *<CR>
@@ -224,10 +232,6 @@ autocmd BufReadPost *
 set undofile
 set undodir=~/.vim/undodir
 
-if has("patch-7.4-399")
-    set cryptmethod=blowfish2
-endif
-
 let tlist_vala_settings='c#;d:macro;t:typedef;n:namespace;c:class;'.
   \ 'E:event;g:enum;s:struct;i:interface;'.
   \ 'p:properties;m:method'
@@ -239,3 +243,5 @@ let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 let g:syntastic_ocaml_checkers = ['merlin']
 execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
+
+source ~/.vim_cscope

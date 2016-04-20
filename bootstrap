@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 REPO_PATH=$(pwd)
 
-for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases'
+for src in 'bashrc' 'inputrc' 'vimrc' 'bash_aliases' 'vim_cscope'
 do
     if [ -e "$HOME/.$src" ]
     then
