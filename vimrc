@@ -28,7 +28,7 @@ Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'danro/rename.vim'
-Bundle 'techlivezheng/vim-plugin-minibufexpl'
+"Bundle 'techlivezheng/vim-plugin-minibufexpl'
 Bundle 'ivanov/vim-ipython'
 Bundle 'tpope/vim-fugitive'
 Bundle 'jistr/vim-nerdtree-tabs'
@@ -190,8 +190,10 @@ set backspace=indent,eol,start
 
 " toggle taglist window
 nnoremap <Leader>t :TlistToggle<CR>
-let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_GainFocus_On_ToggleOpen=0
+let Tlist_Use_Right_Window = 1
 let Tlist_Show_One_File=1
+let Tlist_WinWidth=40
 
 " toggle minibufexpl window
 nnoremap <Leader>b :MBEToggle<CR>
