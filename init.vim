@@ -7,4 +7,4 @@ au WinEnter * if (&buftype == 'terminal') | startinsert | endif
 
 " Neovim-qt Guifont command
 command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>") | let g:Guifont="<args>"
-Guifont Droid Sans Mono:h11
+Guifont Droid Sans Mono:h12

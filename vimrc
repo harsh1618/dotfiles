@@ -27,7 +27,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
 Bundle 'vim-scripts/taglist.vim'
-Bundle 'danro/rename.vim'
+Bundle 'tpope/vim-eunuch'
 "Bundle 'techlivezheng/vim-plugin-minibufexpl'
 Bundle 'ivanov/vim-ipython'
 Bundle 'tpope/vim-fugitive'
@@ -40,6 +40,7 @@ Bundle 'Raimondi/delimitMate'
 "Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-markdown'
+Plugin 'suan/vim-instant-markdown'
 Plugin 'shiracamus/vim-syntax-x86-objdump-d'
 Plugin 'kchmck/vim-coffee-script'
 if has("ruby")
@@ -97,7 +98,7 @@ set autoindent
 set smartindent
 
 " toggle cursor column highlighting
-nnoremap <Leader>c :set invcursorcolumn<CR>
+nnoremap <Leader>v :set invcursorcolumn<CR>
 
 " case insensitive patterns
 " prefix with \C for case sensitive matching
@@ -123,9 +124,10 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" guest mode
-" undo above mapping
-noremap <Leader>; :unmap :<Bar>unmap ;<CR>
+" Go to next/previous line beginning with a word character,
+" hopefully a function declaration
+noremap ]] /^\w<CR>:noh<CR>
+noremap [[ ?^\w<CR>:noh<CR>
 
 " 0 to go to first non-whitespace character
 nnoremap 0 ^
@@ -135,9 +137,6 @@ inoremap jj <Esc>
 
 " repeat last defined macro, Bonus: no Ex mode
 nnoremap Q @@
-
-" automatically change directory to the file location
-"set autochdir
 
 " save file with sudo privileges
 noremap <Leader>w :w !sudo tee > /dev/null %<CR>
@@ -156,18 +155,24 @@ set pastetoggle=<F3>
 noremap <Leader>n :NERDTreeTabsToggle<CR>
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.o$', '\.cmi$', '\.cmo$', '\.cmt$', '\.cmti$', '\.annot$', '\.cmx$']
 let g:NERDTreeWinSize=20
+let g:NERDTreeMouseMode=3
 
 " don't abandon buffers when unloading
 set hidden
 
 " set t_Co=256
+let g:onedark_terminal_italics = 1
 colorscheme onedark
-let g:airline_powerline_fonts = 1
-let g:airline_theme="onedark"
+"let g:airline_powerline_fonts = 1
+let g:airline_theme="powerlineish"
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline_right_sep = ""
+let g:airline_left_sep = ""
 
 " split vertically for diffs
 set diffopt+=vertical
+" open new vertical split on right side
+set splitright
 
 " hide toolbar in gvim
 set guioptions-=T
@@ -194,13 +199,7 @@ let Tlist_GainFocus_On_ToggleOpen=0
 let Tlist_Use_Right_Window = 1
 let Tlist_Show_One_File=1
 let Tlist_WinWidth=40
-
-" toggle minibufexpl window
-nnoremap <Leader>b :MBEToggle<CR>
-"nnoremap <Leader>b :TMiniBufExplorer<CR>
-
-" slime default to ipython: wrap in %cpaste when sending to buffer
-let g:slime_python_ipython=1
+let Tlist_Enable_Fold_Column = 0
 
 " toggle gundo
 nnoremap <Leader>u :GundoToggle<CR>
@@ -208,9 +207,7 @@ nnoremap <Leader>u :GundoToggle<CR>
 " indent guides
 nnoremap <Leader>i :IndentGuidesToggle<CR>
 
-" yank/delete till end of line
-nnoremap C c$
-nnoremap D d$
+" yank till end of line
 nnoremap Y y$
 
 "grep options
@@ -218,9 +215,11 @@ set grepprg=grep\ --exclude=tags\ --exclude=cscope.out\ -n\ -I\ $*\ /dev/null
 " search for the word under the cursor
 nnoremap <Leader>g :grep <C-R><C-W> *<CR>
 nnoremap <Leader>r :grep -r <C-R><C-W> *<CR>
+nnoremap <Leader>cw :belowright cwindow<CR>
 
 "CtrlP ignore files
-let g:ctrlp_custom_ignore='.*\.o$'
+let g:ctrlp_custom_ignore='.*\.o$\|.*\.ll$\|.*\.rst$\|.*\.txt$'
+
 " use vim's pwd
 let g:ctrlp_working_path_mode = 'a'
 
@@ -245,5 +244,10 @@ let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
 execute "set rtp+=" . g:opamshare . "/merlin/vim"
 let g:syntastic_ocaml_checkers = ['merlin']
 execute "set rtp+=" . g:opamshare . "/ocp-indent/vim"
+
+let delimitMate_expand_cr = 1
+
+let g:easytags_async = 1
+let g:easytags_auto_highlight = 0
 
 source ~/.vim_cscope
